@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DomiActas IT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <main>
+        <form action="/" method="post">
+            <h1>DomiActas IT</h1>
+            <p>Generador de actas Dominion AIR-E</p>
+            <section class="sect_1">
+                <article>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required><br>
+                    <label for="cedula">Identificacion</label>
+                    <input type="number" id="cedula" name="cedula" required><br>
+                    <label for="ciudad_expedicion">Ciudad de expedicion</label>
+                    <select id="ciudad_expedicion" name="ciudad_expedicion" required>
+                        <option selected disabled>Selecciona</option>
+                        <option value="RIOHACHA">RIOHACHA</option>
+                        <option value="MAICAO">MAICAO</option>
+                        <option value="SAN JUAN">SAN JUAN</option>
+                        <option value="FUNDACION">FUNDACION</option>
+                        <option value="SANTA MARTA">SANTA MARTA</option>
+                    </select>
+                </article>
+                <article>
+                    <label for="ciudad">Ciudad</label>
+                    <select id="ciudad" name="ciudad" required>
+                        <option selected disabled>Selecciona</option>
+                        <option value="RIOHACHA">RIOHACHA</option>
+                        <option value="MAICAO">MAICAO</option>
+                        <option value="SAN JUAN">SAN JUAN</option>
+                        <option value="FUNDACION">FUNDACION</option>
+                        <option value="SANTA MARTA">SANTA MARTA</option>
+                    </select>
+                    <div style="display: grid; grid-template-columns: auto auto;">
+                        <div style="display: flex; flex-direction: column; margin-right: 15px;">
+                            <label for="dia">Dia</label>
+                            <input type="number" id="dia" name="dia" required style="width: 70px;">
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <label for="mes">Mes</label>
+                            <select id="mes" name="mes" required>
+                                <option selected disabled>Selecciona</option>
+                                <option value="ENERO">ENERO</option>
+                                <option value="FEBRERO">FEBRERO</option>
+                                <option value="MARZO">MARZO</option>
+                                <option value="ABRIL">ABRIL</option>
+                                <option value="MAYO">MAYO</option>
+                                <option value="JUNIO">JUNIO</option>
+                                <option value="JULIO">JULIO</option>
+                                <option value="AGOSTO">AGOSTO</option>
+                                <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                                <option value="OCTUBRE">OCTUBBRE</option>
+                                <option value="NOVIEMBRE">NOVIEMBRE</option>
+                                <option value="DICIEMBRE">DICIEMBRE</option>
+                            </select>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <button type="submit">Generar</button>
+        </form>
+    </main>
+</body>
+</html>
