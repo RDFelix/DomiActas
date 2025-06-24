@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DomiActas</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+        </nav>
+    </header>
+    <main class="px-10 pt-5">
+        <section class="max-w-md bg-slate-800 p-5 rounded-lg">
+            <form>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="nombre_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre Completo</label>
+                        <input type="text" id="nombre_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Carlos López" required />
+                    </div>
+                    <div>
+                        <label for="cedula_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Cédula</label>
+                        <input type="text" id="cedula_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 102030405" required />
+                    </div>
+                    <div>
+                        <label for="ciudad_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                        <input type="text" id="ciudad_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Riohacha" required />
+                    </div>
+                    <div>
+                        <label for="dia_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
+                        <input type="number" id="dia_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 23" min="1" max="31" required />
+                    </div>
+                    <div>
+                        <label for="mes_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
+                        <select id="mes_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">Selecciona un mes</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="razon_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Razón del Descuento</label>
+                    <textarea id="razon_descuento" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Describe la razón del descuento..." required></textarea>
+                </div>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="valor_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor del Descuento</label>
+                        <input type="number" id="valor_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 50000" min="0" step="any" required />
+                    </div>
+                    <div>
+                        <label for="cuotas_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Cuotas</label>
+                        <input type="number" id="cuotas_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 5" min="1" required />
+                    </div>
+                    <div>
+                        <label for="cesantias_descuento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cesantías</label>
+                        <input type="text" id="cesantias_descuento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Valor de cesantías" />
+                    </div>
+                </div>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Descuento</button>
+            </form>
+        </section>
+    </main>
+    <footer class="text-center p-5">
+        <p>RDFelix | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>
