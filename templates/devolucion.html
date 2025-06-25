@@ -1,83 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DomiActas</title>
+    <title>DomiActas IT</title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/dominion_logo.png') }}" type="image/x-icon">
 </head>
-<body>
-    <header>
-        <nav>
-        </nav>
-    </header>
+<body class="bg-gray-900 text-white">
     <main class="px-10 pt-5">
-        <section class="max-w-md bg-slate-800 p-5 rounded-lg">
-           <form>
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
-                    <div>
-                        <label for="nombre_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre Completo</label>
-                        <input type="text" id="nombre_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Ana Gómez" required />
-                    </div>
-                    <div>
-                        <label for="cedula_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Cédula</label>
-                        <input type="text" id="cedula_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 987654321" required />
-                    </div>
-                    <div>
-                        <label for="ciudad_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-                        <input type="text" id="ciudad_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Riohacha" required />
-                    </div>
-                    <div>
-                        <label for="dia_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
-                        <input type="number" id="dia_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 23" min="1" max="31" required />
-                    </div>
-                    <div>
-                        <label for="mes_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
-                        <select id="mes_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">Selecciona un mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Detalles del Equipo Devuelto</h3>
-                    <div class="grid gap-6 md:grid-cols-2">
-                        <div>
-                            <label for="marca_equipo_dev" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
-                            <input type="text" id="marca_equipo_dev" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: iPhone" required />
-                        </div>
-                        <div>
-                            <label for="modelo_equipo_dev" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
-                            <input type="text" id="modelo_equipo_dev" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 14 Pro Max" required />
-                        </div>
-                        <div>
-                            <label for="serial_equipo_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
-                            <input type="text" id="serial_equipo_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: XYZ987UVW654" required />
-                        </div>
-                        <div>
-                            <label for="accesorios_devolucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Accesorios Devueltos</label>
-                            <input type="text" id="accesorios_devolucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Cargador, estuche" />
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Devolución</button>
-            </form> 
+        <section class="bg-slate-800 px-5 rounded-lg mb-4 flex items-center justify-between">
+            <article class="flex items-center space-x-2">
+                <img src="{{ url_for('static', filename='img/dominion.svg') }}" alt="" class="w-15 h-15">
+                <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de devolucion</h1>
+            </article>
+            <article class="space-x-2 bg-gray-900 px-5 py-3 my-2 rounded-full">
+                <a href="{{ url_for('asignacion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Asignacion</a>
+                <a href="{{ url_for('devolucion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Devolucion</a>
+                <a href="{{ url_for('descuento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Descuento</a>
+                <a href="{{ url_for('mantenimiento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mantenimiento</a>
+            </article>
         </section>
+
+        <form method="post" action="{{ url_for('generar_devolver') }}">
+            <section class="md:flex md:gap-5">
+                <article class="bg-slate-800 p-5 rounded-lg mb-6 w-[30%]">
+                    <div class="grid grid-cols-6 gap-3 mb-5">
+                        <div class="col-span-4">
+                            <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                            <select id="ciudad" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="">Seleccione</option>
+                                <option value="RIOHACHA">Riohacha</option>
+                                <option value="SAN JUAN">San Juan</option>
+                                <option value="MAICAO">Maicao</option>
+                                <option value="SANTA MARTA">Santa Marta</option>
+                                <option value="FUNDACION">Fundacion</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-4 gap-3 col-span-6">
+                            <div>
+                                <label for="dia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
+                                <input type="number" id="dia" name="dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="1" max="31" required />
+                            </div>
+                            <div class="col-span-2">
+                                <label for="mes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
+                                <select id="mes" name="mes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="ENERO">Enero</option>
+                                    <option value="FEBRERO">Febrero</option>
+                                    <option value="MARZO">Marzo</option>
+                                    <option value="ABRIL">Abril</option>
+                                    <option value="MAYO">Mayo</option>
+                                    <option value="JUNIO">Junio</option>
+                                    <option value="JULIO">Julio</option>
+                                    <option value="AGOSTO">Agosto</option>
+                                    <option value="SEPTIEMBRE">Septiembre</option>
+                                    <option value="OCTUBRE">Octubre</option>
+                                    <option value="NOVIEMBRE">Noviembre</option>
+                                    <option value="DICIEMBRE">Diciembre</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="año" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Año</label>
+                                <input type="text" id="año" name="año" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2025" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3 mb-3">
+                        <div>
+                            <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
+                            <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                        <div>
+                            <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
+                            <input type="number" id="cedula" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Entrega</button>
+                </article>
+                
+                <div class="md:max-w-[70vw] w-[70%] overflow-auto h-full">
+                    <div class="relative overflow-x-auto rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-4 py-2">
+                                        #
+                                    </th>
+                                    <th scope="col" class="px-4 py-2">
+                                        Marca
+                                    </th>
+                                    <th scope="col" class="px-4 py-2">
+                                        Modelo
+                                    </th>
+                                    <th scope="col" class="px-4 py-2">
+                                        Serial
+                                    </th>
+                                    <th scope="col" class="px-6 py-2">
+                                        Cargador
+                                    </th>
+                                    <th scope="col" class="px-8 py-2">
+                                        Estuche
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700 border-gray-200">
+                                    <td class="px-2 py-3 text-center font-bold">
+                                        1
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="marca_1" name="marca_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="modelo_1" name="modelo_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="serial_1" name="serial_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="cargador_1" name="cargador_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO" selected>NO</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="estuche_1" name="estuche_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NI</option>
+                                            <option value="N/A" selected>N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700 border-gray-200">
+                                    <td class="px-2 py-3 text-center font-bold">
+                                        2
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="marca_2" name="marca_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="modelo_2" name="modelo_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="serial_2" name="serial_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="cargador_2" name="cargador_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="estuche_2" name="estuche_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NI</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700 border-gray-200">
+                                    <td class="px-2 py-3 text-center font-bold">
+                                        3
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="marca_3" name="marca_3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="modelo_3" name="modelo_3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="serial_3" name="serial_3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="cargador_3" name="cargador_3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="estuche_3" name="estuche_3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NI</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700 border-gray-200">
+                                    <td class="px-2 py-3 text-center font-bold">
+                                        4
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="marca_4" name="marca_4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="modelo_4" name="modelo_4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="serial_4" name="serial_4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="cargador_4" name="cargador_4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="estuche_4" name="estuche_4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NI</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700 border-gray-200">
+                                    <td class="px-2 py-3 text-center font-bold">
+                                        5
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="marca_5" name="marca_5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="modelo_5" name="modelo_5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input type="text" id="serial_5" name="serial_5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""/>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="cargador_5" name="cargador_5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-2 py-3 text-center">
+                                        <select id="estuche_5" name="estuche_5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option value="">Selecciona</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NI</option>
+                                            <option value="N/A">N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg my-6">
+                        <div class="mb-3">
+                            <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">observacion</label>
+                            <textarea id="observacion" name="observacion" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
     </main>
-    <footer class="text-center p-5">
-        <p>RDFelix | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
+    <footer class="text-center pb-5">
+        <p class="italic"><span class="font-bold">RDFelix</span> | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
     </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

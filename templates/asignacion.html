@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DomiActas IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/dominion_logo.png') }}" type="image/x-icon">
+</head>
+<body class="bg-gray-900 text-white">
+    <main class="px-10 pt-5">
+        <section class="bg-slate-800 px-5 rounded-lg mb-4 flex items-center justify-between">
+            <article class="flex items-center space-x-2">
+                <img src="{{ url_for('static', filename='img/dominion.svg') }}" alt="" class="w-15 h-15">
+                <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de asignacion</h1>
+            </article>
+            <article class="space-x-2 bg-gray-900 px-5 py-3 my-2 rounded-full">
+                <a href="{{ url_for('asignacion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Asignacion</a>
+                <a href="{{ url_for('devolucion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Devolucion</a>
+                <a href="{{ url_for('descuento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Descuento</a>
+                <a href="{{ url_for('mantenimiento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mantenimiento</a>
+            </article>
+        </section>
+        
+        <form method="post" action="{{ url_for('generar_asignar') }}">
+            <section class="md:flex md:gap-5">
+                <article class="bg-slate-800 p-5 rounded-lg mb-6 w-[40%]">
+                    <div class="grid grid-cols-7 gap-3 mb-5">
+                        <div class="col-span-2 md:mr-3">
+                            <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                            <select id="ciudad_entrega" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="">Seleccione</option>
+                                <option value="RIOHACHA">Riohacha</option>
+                                <option value="SAN JUAN">San Juan</option>
+                                <option value="MAICAO">Maicao</option>
+                                <option value="SANTA MARTA">Santa Marta</option>
+                                <option value="FUNDACION">Fundacion</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-4 gap-3 col-span-5">
+                            <div>
+                                <label for="dia_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
+                                <input type="number" id="dia_entrega" name="dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="1" max="31" required />
+                            </div>
+                            <div class="col-span-2">
+                                <label for="mes_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
+                                <select id="mes_entrega" name="mes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="ENERO">Enero</option>
+                                    <option value="FEBRERO">Febrero</option>
+                                    <option value="MARZO">Marzo</option>
+                                    <option value="ABRIL">Abril</option>
+                                    <option value="MAYO">Mayo</option>
+                                    <option value="JUNIO">Junio</option>
+                                    <option value="JULIO">Julio</option>
+                                    <option value="AGOSTO">Agosto</option>
+                                    <option value="SEPTIEMBRE">Septiembre</option>
+                                    <option value="OCTUBRE">Octubre</option>
+                                    <option value="NOVIEMBRE">Noviembre</option>
+                                    <option value="DICIEMBRE">Diciembre</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="año_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Año</label>
+                                <input type="text" id="año_entrega" name="año" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2025" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div class="col-span-2">
+                            <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
+                            <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                        <div>
+                            <label for="cedula_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
+                            <input type="number" id="cedula_entrega" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                        <div>
+                            <label for="cesantias" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cesantías</label>
+                            <select id="cesantias" name="cesantias" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="">Seleccione</option>
+                                <option value="PORVENIR">Porvenir</option>
+                                <option value="PROTECCION">Protección</option>
+                                <option value="COLFONDOS">Colfondos</option>
+                                <option value="FNA">Fondo Nacional del Ahorro (FNA)</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">observacion</label>
+                        <textarea id="observacion" name="observacion" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    </div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Entrega</button>
+                </article>
+                
+                <div class="md:max-w-[60vw] w-[60%] overflow-auto h-full">
+                    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-2 border-b-2 rounded-t-lg" id="celular-tab" data-tabs-target="#form_celular" type="button" role="tab" aria-controls="celular" aria-selected="false">Celular</button>
+                            </li>
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-2 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="portatil-tab" data-tabs-target="#form_portatil" type="button" role="tab" aria-controls="portatil" aria-selected="false">Portatil</button>
+                            </li>
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-2 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="monitor-tab" data-tabs-target="#form_monitor" type="button" role="tab" aria-controls="monitor" aria-selected="false">Monitor</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="default-tab-content">
+                        <div class="hidden bg-slate-800 p-5 rounded-lg mb-6" id="form_celular" role="tabpanel" aria-labelledby="celular-tab">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Celular</h3>
+                            <div class="grid gap-6 md:grid-cols-3">
+                                <div>
+                                    <label for="marca_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
+                                    <input type="text" id="marca_celular" name="marca_celular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="modelo_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+                                    <input type="text" id="modelo_celular" name="modelo_celular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="cargador_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">¿Entrega con cargador?</label>
+                                    <ul id="cargador_celular_radios" class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_si_celular" type="radio" value="SI" name="cargador_celular" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_si_celular" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_no_celular" type="radio" value="NO" name="cargador_celular" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_no_celular" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_na_celular" type="radio" value="N/A" name="cargador_celular" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                <label for="cargador_na_celular" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">N/A</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-span-[2]">
+                                    <label for="serial_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                                    <input type="text" id="serial_celular" name="serial_celular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="imei_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IMEI</label>
+                                    <input type="text" id="imei_celular" name="imei_celular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="linea_celular" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Línea Celular</label>
+                                    <input type="text" id="linea_celular" name="linea_celular" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="hidden bg-slate-800 p-5 rounded-lg mb-6" id="form_portatil" role="tabpanel" aria-labelledby="portatil-tab">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Portátil</h3>
+                            <div class="grid gap-6 md:grid-cols-3">
+                                <div>
+                                    <label for="marca_portatil" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
+                                    <input type="text" id="marca_portatil" name="marca_portatil" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="modelo_portatil" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+                                    <input type="text" id="modelo_portatil" name="modelo_portatil" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="cargador_portatil_radios" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">¿Entrega con cargador?</label>
+                                    <ul id="cargador_portatil_radios" class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_si_portatil" type="radio" value="SI" name="cargador_portatil" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_si_portatil" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_no_portatil" type="radio" value="NO" name="cargador_portatil" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_no_portatil" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_na_portatil" type="radio" value="N/A" name="cargador_portatil" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                <label for="cargador_na_portatil" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">N/A</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="grid grid-cols-5 gap-3 col-span-3">
+                                    <div class="col-span-3">
+                                        <label for="serial_portatil" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                                        <input type="text" id="serial_portatil" name="serial_portatil" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    </div>
+                                    <div class="relative overflow-x-auto rounded-lg col-span-2">
+                                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                <tr>
+                                                    <th scope="col" class="px-3 py-2">
+                                                        Accesorio
+                                                    </th>
+                                                    <th scope="col" class="px-3 py-2">
+                                                        Si
+                                                    </th>
+                                                    <th scope="col" class="px-3 py-2">
+                                                        No
+                                                    </th>
+                                                    <th scope="col" class="px-3 py-2">
+                                                        N/A
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                    <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        Teclado
+                                                    </th>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="SI" name="teclado_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="NO" name="teclado_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="N/A" name="teclado_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                    <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        Mouse
+                                                    </th>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="SI" name="mouse_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="NO" name="mouse_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="N/A" name="mouse_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                    <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        Base
+                                                    </th>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="SI" name="base_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="NO" name="base_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="N/A" name="base_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                                    <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        Diadema
+                                                    </th>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="SI" name="diadema_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="NO" name="diadema_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    </td>
+                                                    <td class="px-3 py-2">
+                                                        <input type="radio" value="N/A" name="diadema_accesorio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden bg-slate-800 p-5 rounded-lg mb-6" id="form_monitor" role="tabpanel" aria-labelledby="monitor-tab">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Monitor</h3>
+                            <div class="grid gap-6 md:grid-cols-3">
+                                <div>
+                                    <label for="marca_monitor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
+                                    <input type="text" id="marca_monitor" name="marca_monitor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="modelo_monitor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
+                                    <input type="text" id="modelo_monitor" name="modelo_monitor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label for="cargador_monitor_radios" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">¿Entrega con cargador?</label>
+                                    <ul id="cargador_monitor_radios" class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_si_monitor" type="radio" value="SI" name="cargador_monitor" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_si_monitor" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_no_monitor" type="radio" value="NO" name="cargador_monitor" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="cargador_no_monitor" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="cargador_na_monitor" type="radio" value="N/A" name="cargador_monitor" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                                <label for="cargador_na_monitor" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">N/A</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="serial_monitor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                                    <input type="text" id="serial_monitor" name="serial_monitor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+    <footer class="text-center pb-5">
+        <p class="italic"><span class="font-bold">RDFelix</span> | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>

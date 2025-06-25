@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DomiActas</title>
+    <title>DomiActas IT</title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/dominion_logo.png') }}" type="image/x-icon">
 </head>
-<body>
-    <header>
-        <nav>
-        </nav>
-    </header>
+<body class="bg-gray-900 text-white">
     <main class="px-10 pt-5">
+        <section class="bg-slate-800 px-5 rounded-lg mb-4 flex items-center justify-between">
+            <article class="flex items-center space-x-2">
+                <img src="{{ url_for('static', filename='img/dominion.svg') }}" alt="" class="w-15 h-15">
+                <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de mantenimiento</h1>
+            </article>
+            <article class="space-x-2 bg-gray-900 px-5 py-3 my-2 rounded-full">
+                <a href="{{ url_for('asignacion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Asignacion</a>
+                <a href="{{ url_for('devolucion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Devolucion</a>
+                <a href="{{ url_for('descuento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Descuento</a>
+                <a href="{{ url_for('mantenimiento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mantenimiento</a>
+            </article>
+        </section>
         <section class="max-w-md bg-slate-800 p-5 rounded-lg">
            <form>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">

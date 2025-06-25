@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",
-    "tailwindcss": "^4.1.10"
+    "number-to-words": "^1.2.4",
+    "tailwindcss": "^4.1.10",
+    "to-words": "^4.6.0"
   }
 }
