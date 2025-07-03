@@ -13,7 +13,7 @@
         <section class="bg-slate-800 px-5 rounded-lg mb-4 flex items-center justify-between">
             <article class="flex items-center space-x-2">
                 <img src="{{ url_for('static', filename='img/dominion.svg') }}" alt="" class="w-15 h-15">
-                <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de asignacion</h1>
+                <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de descuento</h1>
             </article>
             <article class="space-x-2 bg-gray-900 px-5 py-3 my-2 rounded-full">
                 <a href="{{ url_for('asignacion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Asignacion</a>
@@ -23,13 +23,13 @@
             </article>
         </section>
         
-        <form method="post" action="{{ url_for('generar_asignar') }}">
-            <section class="md:flex md:gap-5">
-                <article class="bg-slate-800 p-5 rounded-lg mb-6 w-[40%]">
-                    <div class="grid grid-cols-3 gap-3 mb-5">
-                        <div class="col-span-2 md:mr-3">
-                            <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-                            <select id="ciudad_entrega" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+        <form method="post" action="{{ url_for('generar_descontar') }}">
+            <section class="flex gap-10">
+                <article class="w-[60%] bg-slate-800 p-5 rounded-lg mb-6">
+                    <div class="grid grid-cols-5 gap-3 mb-5">
+                        <div class="md:mr-3">
+                            <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                            <select id="ciudad" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option value="">Seleccione</option>
                                 <option value="RIOHACHA">Riohacha</option>
                                 <option value="SAN JUAN">San Juan</option>
@@ -38,14 +38,14 @@
                                 <option value="FUNDACION">Fundacion</option>
                             </select>
                         </div>
-                        <div class="grid grid-cols-4 gap-3 col-span-5">
+                        <div class="grid grid-cols-4 gap-3 col-span-2">
                             <div>
-                                <label for="dia_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
-                                <input type="number" id="dia_entrega" name="dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="1" max="31" required />
+                                <label for="dia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
+                                <input type="number" id="dia" name="dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="1" max="31" required />
                             </div>
                             <div class="col-span-2">
-                                <label for="mes_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
-                                <select id="mes_entrega" name="mes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <label for="mes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
+                                <select id="mes" name="mes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                     <option value="">Seleccione</option>
                                     <option value="ENERO">Enero</option>
                                     <option value="FEBRERO">Febrero</option>
@@ -62,118 +62,11 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="año_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Año</label>
-                                <input type="text" id="año_entrega" name="año" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2025" required />
+                                <label for="año" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Año</label>
+                                <input type="text" id="año" name="año" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2025" required />
                             </div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 mb-3">
-                        <div class="col-span-3">
-                            <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
-                            <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                        </div>
-                        <div class="col-span-2">
-                            <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
-                            <input type="number" id="cedula" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                        </div>
-                        <div>
-                            <label for="expedicion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad de expedicion</label>
-                            <input type="text" list="ciudades" id="expedicion" name="expedicion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-
-                            <datalist id="ciudades">
-                                <option value="BOGOTÁ"></option>
-                                <option value="MEDELLÍN"></option>
-                                <option value="CALI"></option>
-                                <option value="BARRANQUILLA"></option>
-                                <option value="CARTAGENA"></option>
-                                <option value="CÚCUTA"></option>
-                                <option value="BUCARAMANGA"></option>
-                                <option value="MANIZALES"></option>
-                                <option value="PEREIRA"></option>
-                                <option value="ARMENIA"></option>
-                                <option value="IBAGUÉ"></option>
-                                <option value="VILLAVICENCIO"></option>
-                                <option value="NEIVA"></option>
-                                <option value="PASTO"></option>
-                                <option value="POPAYÁN"></option>
-                                <option value="SANTA MARTA"></option>
-                                <option value="VALLEDUPAR"></option>
-                                <option value="RIOHACHA"></option>
-                                <option value="MONTERÍA"></option>
-                                <option value="SINCELEJO"></option>
-                                <option value="QUIBDÓ"></option>
-                                <option value="TUNJA"></option>
-                                <option value="FLORENCIA"></option>
-                                <option value="YOPAL"></option>
-                                <option value="MOCOA"></option>
-                                <option value="SAN JOSÉ DEL GUAVIARE"></option>
-                                <option value="PUERTO CARREÑO"></option>
-                                <option value="MITÚ"></option>
-                                <option value="INÍRIDA"></option>
-                                <option value="ARAUCA"></option>
-                                <option value="CARTAGO"></option>
-                                <option value="PALMIRA"></option>
-                                <option value="BUENAVENTURA"></option>
-                                <option value="SOLEDAD"></option>
-                                <option value="VILLANUEVA"></option>
-                                <option value="ENVIGADO"></option>
-                                <option value="ITAGÜÍ"></option>
-                                <option value="BELLO"></option>
-                                <option value="GIRARDOT"></option>
-                                <option value="DUITAMA"></option>
-                                <option value="SOGAMOSO"></option>
-                                <option value="ZIPAQUIRÁ"></option>
-                                <option value="CHÍA"></option>
-                                <option value="FACATATIVÁ"></option>
-                                <option value="FUSAGASUGÁ"></option>
-                                <option value="PIEDECUESTA"></option>
-                                <option value="FLORIDABLANCA"></option>
-                                <option value="DOSQUEBRADAS"></option>
-                                <option value="SOACHA"></option>
-                                <option value="TURBO"></option>
-                                <option value="APARTADÓ"></option>
-                                <option value="SAN ANDRÉS"></option>
-                                <option value="RIONEGRO"></option>
-                                <option value="BARRANCABERMEJA"></option>
-                                <option value="MALAMBO"></option>
-                                <option value="MAICAO"></option>
-                                <option value="OCAÑA"></option>
-                                <option value="IPIALES"></option>
-                                <option value="SAMANÁ"></option>
-                                <option value="JAMUNDÍ"></option>
-                                <option value="LA DORADA"></option>
-                                <option value="ESPINAL"></option>
-                                <option value="PITALITO"></option>
-                                <option value="BARRANCAS"></option>
-                                <option value="URIBIA"></option>
-                                <option value="DIBULLA"></option>
-                                <option value="FONSECA"></option>
-                                <option value="MANAURE"></option>
-                                <option value="ALBANIA"></option>
-                                <option value="EL MOLINO"></option>
-                                <option value="DISTRACCIÓN"></option>
-                                <option value="SAN JUAN DEL CESAR"></option>
-                                <option value="HATONUEVO"></option>
-                                <option value="EL COPEY"></option>
-                                <option value="BOSCONIA"></option>
-                                <option value="AGUSTÍN CODAZZI"></option>
-                                <option value="CURUMANÍ"></option>
-                                <option value="LA PAZ"></option>
-                                <option value="MANAURE BALCÓN DEL CESAR"></option>
-                                <option value="CHIMICHAGUA"></option>
-                                <option value="ASTREA"></option>
-                                <option value="EL PASO"></option>
-                                <option value="TAMALAMEQUE"></option>
-                                <option value="GAMARRA"></option>
-                                <option value="GONZÁLEZ"></option>
-                                <option value="SAN MARTÍN"></option>
-                                <option value="AGUACHICA"></option>
-                                <option value="PUEBLO BELLO"></option>
-                                <option value="LA JAGUA DE IBIRICO"></option>
-                                <option value="BECERRIL"></option>
-                            </datalist>
-                        </div>
-                        <div>
+                        <div class="col-span-2 ml-10">
                             <label for="cesantias" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cesantías</label>
                             <select id="cesantias" name="cesantias" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option value="">Seleccione</option>
@@ -184,12 +77,201 @@
                                 <option value="N/A">N/A</option>
                             </select>
                         </div>
+                        <div class="grid grid-cols-6 gap-3 col-span-5">
+                            <div class="col-span-3">
+                                <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
+                                <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            </div>
+                            <div class="ml-10 col-span-2">
+                                <label for="valor_input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor del descuento</label>
+                                <span class="absolute text-sm p-2.5 border border-transparent">$</span>
+                                <input type="number" id="valor_input" name="valor_input" class="pl-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                
+                                <input type="hidden" id="valor" name="valor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input type="hidden" id="precio" name="precio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div class="">
+                                <label for="cuotas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cuotas</label>
+                                <input type="number" id="cuotas" name="cuotas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            </div>
+                            <div class="col-span-2">
+                                <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
+                                <input type="number" id="cedula" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            </div>
+                            <div class="col-span-2 mr-10">
+                                <label for="expedicion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad de expedicion</label>
+                                <input type="text" list="ciudades" id="expedicion" name="expedicion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <datalist id="ciudades">
+                                    <option value="BOGOTÁ"></option>
+                                    <option value="MEDELLÍN"></option>
+                                    <option value="CALI"></option>
+                                    <option value="BARRANQUILLA"></option>
+                                    <option value="CARTAGENA"></option>
+                                    <option value="CÚCUTA"></option>
+                                    <option value="BUCARAMANGA"></option>
+                                    <option value="MANIZALES"></option>
+                                    <option value="PEREIRA"></option>
+                                    <option value="ARMENIA"></option>
+                                    <option value="IBAGUÉ"></option>
+                                    <option value="VILLAVICENCIO"></option>
+                                    <option value="NEIVA"></option>
+                                    <option value="PASTO"></option>
+                                    <option value="POPAYÁN"></option>
+                                    <option value="SANTA MARTA"></option>
+                                    <option value="VALLEDUPAR"></option>
+                                    <option value="RIOHACHA"></option>
+                                    <option value="MONTERÍA"></option>
+                                    <option value="SINCELEJO"></option>
+                                    <option value="QUIBDÓ"></option>
+                                    <option value="TUNJA"></option>
+                                    <option value="FLORENCIA"></option>
+                                    <option value="YOPAL"></option>
+                                    <option value="MOCOA"></option>
+                                    <option value="SAN JOSÉ DEL GUAVIARE"></option>
+                                    <option value="PUERTO CARREÑO"></option>
+                                    <option value="MITÚ"></option>
+                                    <option value="INÍRIDA"></option>
+                                    <option value="ARAUCA"></option>
+                                    <option value="CARTAGO"></option>
+                                    <option value="PALMIRA"></option>
+                                    <option value="BUENAVENTURA"></option>
+                                    <option value="SOLEDAD"></option>
+                                    <option value="VILLANUEVA"></option>
+                                    <option value="ENVIGADO"></option>
+                                    <option value="ITAGÜÍ"></option>
+                                    <option value="BELLO"></option>
+                                    <option value="GIRARDOT"></option>
+                                    <option value="DUITAMA"></option>
+                                    <option value="SOGAMOSO"></option>
+                                    <option value="ZIPAQUIRÁ"></option>
+                                    <option value="CHÍA"></option>
+                                    <option value="FACATATIVÁ"></option>
+                                    <option value="FUSAGASUGÁ"></option>
+                                    <option value="PIEDECUESTA"></option>
+                                    <option value="FLORIDABLANCA"></option>
+                                    <option value="DOSQUEBRADAS"></option>
+                                    <option value="SOACHA"></option>
+                                    <option value="TURBO"></option>
+                                    <option value="APARTADÓ"></option>
+                                    <option value="SAN ANDRÉS"></option>
+                                    <option value="RIONEGRO"></option>
+                                    <option value="BARRANCABERMEJA"></option>
+                                    <option value="MALAMBO"></option>
+                                    <option value="MAICAO"></option>
+                                    <option value="OCAÑA"></option>
+                                    <option value="IPIALES"></option>
+                                    <option value="SAMANÁ"></option>
+                                    <option value="JAMUNDÍ"></option>
+                                    <option value="LA DORADA"></option>
+                                    <option value="ESPINAL"></option>
+                                    <option value="PITALITO"></option>
+                                    <option value="BARRANCAS"></option>
+                                    <option value="URIBIA"></option>
+                                    <option value="DIBULLA"></option>
+                                    <option value="FONSECA"></option>
+                                    <option value="MANAURE"></option>
+                                    <option value="ALBANIA"></option>
+                                    <option value="EL MOLINO"></option>
+                                    <option value="DISTRACCIÓN"></option>
+                                    <option value="SAN JUAN DEL CESAR"></option>
+                                    <option value="HATONUEVO"></option>
+                                    <option value="EL COPEY"></option>
+                                    <option value="BOSCONIA"></option>
+                                    <option value="AGUSTÍN CODAZZI"></option>
+                                    <option value="CURUMANÍ"></option>
+                                    <option value="LA PAZ"></option>
+                                    <option value="MANAURE BALCÓN DEL CESAR"></option>
+                                    <option value="CHIMICHAGUA"></option>
+                                    <option value="ASTREA"></option>
+                                    <option value="EL PASO"></option>
+                                    <option value="TAMALAMEQUE"></option>
+                                    <option value="GAMARRA"></option>
+                                    <option value="GONZÁLEZ"></option>
+                                    <option value="SAN MARTÍN"></option>
+                                    <option value="AGUACHICA"></option>
+                                    <option value="PUEBLO BELLO"></option>
+                                    <option value="LA JAGUA DE IBIRICO"></option>
+                                    <option value="BECERRIL"></option>
+                                </datalist>
+                            </div>
+                            <div class="col-span-2">
+                                <label for="valor_cuota_disabled" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor por cuota</label>
+                                <span class="absolute text-sm p-2.5 border border-transparent">$</span>
+                                <input type="text" id="valor_cuota_disabled" class="pl-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled/>
+                                <input type="hidden" id="valor_cuota" name="valor_cuota" class="pl-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                <input type="hidden" id="precio_cuota" name="precio_cuota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div class="mb-3 col-span-6">
+                            <label for="razon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivo del descuento</label>
+                            <textarea id="razon" name="razon" rows="4" style="max-height: 120px; min-height: 120px;" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
+                        </div>
                     </div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Entrega</button>
                 </article>
-                
-                <div class="md:max-w-[60vw] w-[60%] overflow-auto h-full">
-                </div>
+                <article class="w-[40%] bg-white flex flex-col items-center text-black p-5 rounded-lg mb-6 text-justify h-[82.5vh] overflow-auto">
+                    <style>
+                        .descuento_txt span{
+                            font-style: italic;
+                            font-weight: bold;
+                        }
+                    </style>
+                    <table class="tabla_txt items-center w-[100%] text-xs font-mono">
+                        <tr class="border-black border-[1px]">
+                            <td class="border-r-black border-r-[1px] px-2 w-[20%]">
+                                <div class="flex items-center justify-center h-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="50" viewBox="0 0 90 50" fill="none" class="w-11 h-11">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M38.5051 28.0866H44.4587C52.2149 28.0866 58.5013 21.7993 58.5013 14.0431C58.5013 6.28639 52.2149 0 44.4587 0H38.5051V7.01341H45.31C49.1685 7.01341 52.2957 10.1397 52.2957 13.9983C52.2957 17.8556 49.1685 20.9827 45.31 20.9827H38.5051V28.0866ZM24.8409 42.9449C24.8409 46.2912 22.8042 49.3542 18.5022 49.3542C14.1998 49.3542 12.1636 46.2205 12.1636 42.9629C12.1636 39.1921 14.8013 36.4645 18.5378 36.4645C22.7696 36.4825 24.8409 39.5991 24.8409 42.9449ZM18.5027 47.5305C21.5838 47.5305 22.8758 45.353 22.8758 42.9805C22.8758 40.6971 21.5658 38.3242 18.5382 38.2706C15.6697 38.2706 14.1291 40.2717 14.1291 42.9805C14.1647 45.1756 15.4392 47.5305 18.5027 47.5305ZM4.69229 36.695C8.92405 36.695 10.854 39.7225 10.9062 42.7856C10.9774 45.9193 9.03029 49.0886 4.69229 49.0886H0V36.695H4.69229ZM1.96551 47.1762H4.69229C7.7198 47.1762 8.99473 44.9456 8.94161 42.7684C8.88805 40.6782 7.614 38.5889 4.69229 38.5889H1.96551V47.1762ZM37.6244 39.5991L37.6231 39.601V39.5991H37.6244ZM37.6231 39.601L33.4106 45.4597H32.9861L28.8246 39.5991V49.1066H26.8411V36.7125H29.1424L33.2328 42.52L37.3048 36.7125H39.6066V49.1062H37.6231V39.601ZM42.3689 36.695V49.0886H44.3349V36.695H42.3689ZM55.6481 45.5123V36.695H57.6316V49.0886H56.1262L49.097 40.3428V49.0891H47.0959V36.695H48.6184L55.6481 45.5123ZM60.3935 36.695V49.0886H62.359V36.695H60.3935ZM70.6974 49.3542C75.0003 49.3542 77.0356 46.2912 77.0356 42.9449C77.0356 39.5991 74.9643 36.4825 70.733 36.4645C66.9969 36.4645 64.3583 39.1921 64.3583 42.9629C64.3583 46.2205 66.3945 49.3542 70.6974 49.3542ZM75.0705 42.9805C75.0705 45.353 73.7781 47.5305 70.6974 47.5305C67.6348 47.5305 66.3599 45.1756 66.3247 42.9805C66.3247 40.2717 67.8648 38.2706 70.7325 38.2706C73.7605 38.3242 75.0705 40.6971 75.0705 42.9805ZM87.5889 36.695V45.5123L80.5592 36.695H79.0367V49.0886H81.0378V40.3424L88.0665 49.0886H89.5715V36.695H87.5889ZM46.2315 17.9039H38.5209V10.1814H46.2315V17.9039ZM39.6514 16.7742H45.1023V11.3119H39.6514V16.7742Z" fill="blue"/>
+                                    </svg>
+                                </div>
+                            </td>
+                            <td class="border-r-black border-r-[1px] px-2 w-[40%]">
+                                <p class="text-center font-bold">AUTORIZACION DE DESCUENTOS</p>
+                            </td>
+                            <td class="w-[40%]">
+                                <table class="text-[10px] w-[100%] h-100%">
+                                    <tr class="border-b-black border-b-[1px]">
+                                        <td class="text-end font-bold pr-1">Codigo: </td>
+                                        <td>P-RH-04-FR-01</td>
+                                    </tr>
+                                    <tr class="border-b-black border-b-[1px]">
+                                        <td class="text-end font-bold pr-1">Version: </td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end font-bold pr-1">Fecha Aprovacion: </td>
+                                        <td>28/04/2022</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+
+                    <p class="descuento_txt text-xs font-mono">
+                        <span id="ciudad_txt"></span>, <span id="dia_txt"></span> de <span id="mes_txt"></span> de <span id="año_txt"></span><br><br>
+
+                        Señores: <br>
+                        DOMINION COLOMBIA S.A.S <br>
+                        Departamento de Recursos Humanos ASUNTO: Autorización de descuento <br><br>
+
+                        Yo, <span id="nombre_txt"></span> identificado con la cédula de ciudadanía No.<span id="cedula_txt"></span> de <span id="ciudad_expedicion_txt"></span> mediante el presente escrito 
+                        manifiesto mi voluntad de reconocerme y haberme reconocido deudor de la suma de <span id="valor_txt"></span> PESOS M/CTE ($<span id="precio_txt"></span>), a favor 
+                        de DOMINION COLOMBIA S.A.S. en razón <span id="razon_txt"></span> (ver nota)1. <br><br>
+                        
+                        En virtud de lo anterior, he autorizado y ratifico mi intención de autorizar expresamente a  DOMINION COLOMBIA S.A.S, para que descuente de mi devengo mensualmente la 
+                        suma de <span id="valor_cuota_txt"></span> PESOS M/CTE ($<span id="precio_cuota_txt"></span>) en <span id="cuotas_txt"></span> cuota mensual hasta cubrir la
+                        totalidad del saldo adeudado, y en el evento de terminar el contrato laboral por cualquier causa, he autorizado y ratifico mi autorización expresa para que la Empresa 
+                        pague el saldo o remanente del valor que corresponda por concepto de liquidación final de acreencias laborales, independientemente de su naturaleza salarial, 
+                        prestacional, indemnizatoria o de cualquier otra que se derive de los derechos que me corresponden a la terminación del contrato de trabajo.
+
+                        Si a la terminación del contrato de trabajo, con las acreencias laborales definitivas no se cubre la totalidad del saldo de la obligación, autorizo expresamente al fondo de cesantías
+                        <span id="cesantias_txt"></span> para descontar del saldo de su cuenta personal y girar el valor pendiente a
+                        DOMINION COLOMBIA S.A.S. <br><br>
+                        Con la suscripción del presente documento, manifiesto que conozco las condiciones establecidas en la autorización de descuento y en la nota correspondiente, cuando aplique. <br><br>
+                        Cordialmente,
+                    </p>
+                </article>
             </section>
         </form>
     </main>
@@ -197,6 +279,6 @@
         <p class="italic"><span class="font-bold">RDFelix</span> | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
     </footer>
 </body>
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/numero_letras.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </html>

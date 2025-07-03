@@ -22,51 +22,128 @@
                 <a href="{{ url_for('mantenimiento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mantenimiento</a>
             </article>
         </section>
-        <section class="max-w-md bg-slate-800 p-5 rounded-lg">
-           <form>
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
-                    <div>
-                        <label for="ciudad_mantenimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-                        <input type="text" id="ciudad_mantenimiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: Riohacha" required />
+        <form method="post" action="{{ url_for('generar_devolver') }}">
+            <section class="md:flex md:gap-5">
+                <article class="bg-slate-800 p-5 rounded-lg mb-6 w-[60%]">
+                    <div class="grid grid-cols-2 gap-3 mb-5">
+                        <div class="md:mr-3">
+                            <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                            <select id="ciudad_entrega" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="">Seleccione</option>
+                                <option value="RIOHACHA">Riohacha</option>
+                                <option value="SAN JUAN">San Juan</option>
+                                <option value="MAICAO">Maicao</option>
+                                <option value="SANTA MARTA">Santa Marta</option>
+                                <option value="FUNDACION">Fundacion</option>
+                            </select>
+                        </div>
+                            
+                        <div class="relative max-w-sm">
+                            <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                            <div class="flex items-center">
+                                <div class="absolute ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                    </svg>
+                                </div>
+                                <input id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-today type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="dia_mantenimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
-                        <input type="number" id="dia_mantenimiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: 23" min="1" max="31" required />
+                    <div class="grid grid-cols-1 gap-3 mb-3">
+                        <div>
+                            <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
+                            <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                        <div>
+                            <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
+                            <input type="number" id="cedula" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
                     </div>
-                    <div>
-                        <label for="mes_mantenimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
-                        <select id="mes_mantenimiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="">Selecciona un mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Entrega</button>
+                </article>
+                
+                <div class="md:max-w-[40vw] w-[40%] overflow-auto h-full">
+                    <div class="bg-slate-800 p-3 rounded-lg mb-6">
+                        <h2 class="w-full text-center text-lg font-bold">Mantenimiento</h2>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Formateo</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza formateo de equipo</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Instalacion</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza instalacion de programas autorizados por la empresa</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Eliminacion de temporales</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza eliminacion de temporales / vaciado de cache / vaciado de papelera / rendimiento de arranque /historial de navegacion</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Actualizacion</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza actualizacion de antivirus</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Eliminacio de programas</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza eliminacion de programas y aplicaciones no autorizadas</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Cambio</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza cambio de nombre de equipo</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex items-center h-5">
+                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div class="ms-2 text-sm">
+                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Configuracion</label>
+                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza configuracion de app para control remoto</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="serial_mantenimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial del Equipo</label>
-                        <input type="text" id="serial_mantenimiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej: GHI789JKL012" required />
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <div class="mb-3">
+                            <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observacion</label>
+                            <textarea id="observaciones" name="observaciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-6">
-                    <label for="observaciones_mantenimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observaciones</label>
-                    <textarea id="observaciones_mantenimiento" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Detalles del mantenimiento realizado o necesario..." required></textarea>
-                </div>
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Mantenimiento</button>
-            </form> 
-        </section>
+            </section>
+        </form>
     </main>
     <footer class="text-center p-5">
         <p>RDFelix | © 2025 DomiActas IT. Casi todos los derechos reservados</p>
     </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </html>
