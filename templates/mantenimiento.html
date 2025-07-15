@@ -16,16 +16,17 @@
                 <h1 class="border-l-2 pl-3 border-l-white text-2xl font-bold text-gray-900 dark:text-white">Generar acta de mantenimiento</h1>
             </article>
             <article class="space-x-2 bg-gray-900 px-5 py-3 my-2 rounded-full">
+                 <a href="{{ url_for('inicio') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Inicio</a>
                 <a href="{{ url_for('asignacion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Asignacion</a>
                 <a href="{{ url_for('devolucion') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Devolucion</a>
                 <a href="{{ url_for('descuento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Descuento</a>
                 <a href="{{ url_for('mantenimiento') }}" class="py-1.5 px-2 text-sm font-medium cursor-pointer text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Mantenimiento</a>
             </article>
         </section>
-        <form method="post" action="{{ url_for('generar_devolver') }}">
+        <form method="post" action="{{ url_for('generar_mantenimiento') }}">
             <section class="md:flex md:gap-5">
                 <article class="bg-slate-800 p-5 rounded-lg mb-6 w-[60%]">
-                    <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="grid grid-cols-3 gap-3 mb-5">
                         <div class="md:mr-3">
                             <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
                             <select id="ciudad_entrega" name="ciudad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -38,20 +39,38 @@
                             </select>
                         </div>
                             
-                        <div class="relative max-w-sm">
-                            <label for="ciudad_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-                            <div class="flex items-center">
-                                <div class="absolute ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                    </svg>
-                                </div>
-                                <input id="datepicker-actions" datepicker datepicker-buttons datepicker-autoselect-today type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class="grid grid-cols-4 gap-3 col-span-2">
+                            <div>
+                                <label for="dia_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día</label>
+                                <input type="number" id="dia_entrega" name="dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="1" max="31" required />
+                            </div>
+                            <div class="col-span-2">
+                                <label for="mes_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mes</label>
+                                <select id="mes_entrega" name="mes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="ENERO">Enero</option>
+                                    <option value="FEBRERO">Febrero</option>
+                                    <option value="MARZO">Marzo</option>
+                                    <option value="ABRIL">Abril</option>
+                                    <option value="MAYO">Mayo</option>
+                                    <option value="JUNIO">Junio</option>
+                                    <option value="JULIO">Julio</option>
+                                    <option value="AGOSTO">Agosto</option>
+                                    <option value="SEPTIEMBRE">Septiembre</option>
+                                    <option value="OCTUBRE">Octubre</option>
+                                    <option value="NOVIEMBRE">Noviembre</option>
+                                    <option value="DICIEMBRE">Diciembre</option>
+                                </select>
+                                <input type="hidden" name="mes_numero" id="mes_numero" value="0">
+                            </div>
+                            <div>
+                                <label for="año_entrega" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Año</label>
+                                <input type="text" id="año_entrega" name="año" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 gap-3 mb-3">
-                        <div>
+                    <div class="grid grid-cols-3 gap-3 mb-3">
+                        <div class="col-span-2">
                             <label for="nombre_completo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
                             <input type="text" id="nombre_completo" name="nombre_completo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
@@ -59,81 +78,100 @@
                             <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de identificacion</label>
                             <input type="number" id="cedula" name="cedula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
+                        <div>
+                            <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
+                            <input type="text" list="cargosList" id="cargo" name="cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <datalist id="cargosList">
+                                <optgroup label="Supervisores">
+                                    <option value="SUPERVISOR TECNICO"></option>
+                                    <option value="SUPERVISOR LOGISTICO"></option>
+                                    <option value="SUPERVISOR SST"></option>
+                                    <option value="SUPERVISOR DE SISTEMAS"></option>
+                                    <option value="SUPERVISOR TECNICO-PROGRAMADOR"></option>
+                                    <option value="SUPERVISOR TECNICO-CONTROLLING"></option>
+                                </optgroup>
+
+                                <optgroup label="Coordinadores y Directores">
+                                    <option value="COORDINADOR DE ZONA"></option>
+                                    <option value="COORDINADOR DE MERCADOS ESPECIALES"></option>
+                                    <option value="COORDINADOR DE PLAN"></option>
+                                    <option value="COORDINADORA DE PLAN"></option>
+                                    <option value="COORDINADOR DE HSEQ"></option>
+                                    <option value="DIRECTOR DE PROYECTO"></option>
+                                </optgroup>
+
+                                <optgroup label="Analistas">
+                                    <option value="ANALISTA DE TRANSPORTE"></option>
+                                    <option value="ANALISTA BACK OFFICE"></option>
+                                </optgroup>
+
+                                <optgroup label="Gestores">
+                                    <option value="GESTOR EN SITIO"></option>
+                                </optgroup>
+
+                                <optgroup label="Técnicos y Programadores">
+                                    <option value="TECNICO PROGRAMADOR"></option>
+                                    <option value="TECNICO ELECTRICISTA"></option>
+                                </optgroup>
+
+                                <optgroup label="Auxiliares y Aprendices">
+                                    <option value="AUXILIAR RRHH"></option>
+                                    <option value="AUXILIAR DE LOGISTICA"></option>
+                                    <option value="AUXILIAR ADMINISTRATIVO"></option>
+                                    <option value="APRENDIZ SENA"></option>
+                                    <option value="APRENDIZ"></option>
+                                    <option value="APRENDIZ CONTROL"></option>
+                                </optgroup>
+
+                                <optgroup label="Profesionales">
+                                    <option value="PROFESIONAL PREVENCIONISTA"></option>
+                                    <option value="PROFESIONAL DE FACTURACION"></option>
+                                </optgroup>
+                            </datalist>
+                        </div>
+                        <div>
+                            <label for="serial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                            <input type="text" id="serial" name="serial" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        </div>
+                        <div class="mb-3 col-span-3">
+                            <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observacion</label>
+                            <textarea id="observaciones" name="observaciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
+                        
                     </div>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Acta de Entrega</button>
                 </article>
                 
                 <div class="md:max-w-[40vw] w-[40%] overflow-auto h-full">
-                    <div class="bg-slate-800 p-3 rounded-lg mb-6">
-                        <h2 class="w-full text-center text-lg font-bold">Mantenimiento</h2>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Formateo</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza formateo de equipo</p>
-                            </div>
+                    <div class="grid grid-cols-2 gap-3 mb-3 justify-center items-center bg-slate-800 p-3 rounded-lg">
+                        <h2 class="w-full col-span-2 text-center text-lg font-bold">Mantenimiento</h2>
+                        <div class="flex gap-2 justify-center">
+                            <input id="tipo_mantenimiento" name="tipo_mantenimiento" type="radio" value="preventivo" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="tipo_mantenimiento" class="text-gray-900 dark:text-gray-300">Preventivo</label>
                         </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Instalacion</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza instalacion de programas autorizados por la empresa</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Eliminacion de temporales</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza eliminacion de temporales / vaciado de cache / vaciado de papelera / rendimiento de arranque /historial de navegacion</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Actualizacion</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza actualizacion de antivirus</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Eliminacio de programas</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza eliminacion de programas y aplicaciones no autorizadas</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Cambio</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza cambio de nombre de equipo</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex items-center h-5">
-                                <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            </div>
-                            <div class="ms-2 text-sm">
-                                <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Configuracion</label>
-                                <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">Se realiza configuracion de app para control remoto</p>
-                            </div>
+                        <div class="flex gap-2 justify-center">
+                            <input id="tipo_mantenimiento" name="tipo_mantenimiento" type="radio" value="correctivo" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="tipo_mantenimiento" class="text-gray-900 dark:text-gray-300">Correctivo</label>
                         </div>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <div class="mb-3">
-                            <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observacion</label>
-                            <textarea id="observaciones" name="observaciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <div class="bg-slate-800 p-3 rounded-lg mb-6">
+                        <div class="grid grid-cols-[25px_3fr] gap-3 mb-3 items-center">
+                            <input id="formateo" name="formateo" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="formateo" class="text-gray-900 dark:text-gray-300">Se realiza formateo de equipo</label>
+                            <input id="instalacion" name="instalacion" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="instalacion" class="text-gray-900 dark:text-gray-300">Se realiza instalacion de programas autorizados por la empresa</label>
+                            <input id="limpieza" name="limpieza" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="limpieza" class="text-gray-900 dark:text-gray-300">Se realiza limpieza de hardware</label>
+                            <input id="eliminacion_temporales" name="eliminacion_temporales" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="eliminacion_temporales" class="text-gray-900 dark:text-gray-300">Se realiza eliminacion de temporales/vaciado de cache/vaciado de papelera/rendimiento de arranque/historial de navegacion</label>
+                            <input id="actualizacion" name="actualizacion" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="actualizacion" class="text-gray-900 dark:text-gray-300">Se realiza actualizacion de antivirus</label>
+                            <input id="eliminacion_programas" name="eliminacion_programas" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="eliminacion_programas" class="text-gray-900 dark:text-gray-300">Se realiza eliminacion de programas y aplicaciones no autorizadas</label>
+                            <input id="cambio" name="cambio" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="cambio" class="text-gray-900 dark:text-gray-300">Se realiza cambio de nombre de equipo</label>
+                            <input id="configuracion" name="configuracion" type="checkbox" value="on" class="w-7 h-7 rounded-full text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="configuracion" class="text-gray-900 dark:text-gray-300">Se realiza configuracion de app para control remoto</label>
                         </div>
                     </div>
                 </div>
@@ -145,5 +183,26 @@
     </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+    const $ = element => document.getElementById(element);
+
+    const fechaActual = new Date();
+
+    var dia = fechaActual.getDate();
+    var mes = fechaActual.getMonth();
+    var año = fechaActual.getFullYear();
+
+    $('dia_entrega').value = dia;
+    $('mes_entrega').selectedIndex = mes + 1;
+    $('año_entrega').value = año;
+
+
+    const miSelect = document.getElementById('mes_entrega');
+    const miInput = document.getElementById('mes_numero');
+    miInput.value = miSelect.selectedIndex;
+
+    miSelect.addEventListener('change', function() {
+        miInput.value = this.selectedIndex;
+    });
+</script>
 </html>

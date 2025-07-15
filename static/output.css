@@ -224,6 +224,27 @@
   .col-span-\[2\] {
     grid-column: span 2 / span 2;
   }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
   }
@@ -239,11 +260,17 @@
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
   .mr-10 {
     margin-right: calc(var(--spacing) * 10);
   }
   .-mb-px {
     margin-bottom: -1px;
+  }
+  .mb-1 {
+    margin-bottom: calc(var(--spacing) * 1);
   }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
@@ -287,9 +314,6 @@
   .h-5 {
     height: calc(var(--spacing) * 5);
   }
-  .h-7 {
-    height: calc(var(--spacing) * 7);
-  }
   .h-11 {
     height: calc(var(--spacing) * 11);
   }
@@ -304,9 +328,6 @@
   }
   .w-4 {
     width: calc(var(--spacing) * 4);
-  }
-  .w-7 {
-    width: calc(var(--spacing) * 7);
   }
   .w-11 {
     width: calc(var(--spacing) * 11);
@@ -353,9 +374,6 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
   .grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -367,45 +385,6 @@
   }
   .grid-cols-7 {
     grid-template-columns: repeat(7, minmax(0, 1fr));
-  }
-  .grid-cols-\[1\] {
-    grid-template-columns: 1;
-  }
-  .grid-cols-\[1fr_2fr\] {
-    grid-template-columns: 1fr 2fr;
-  }
-  .grid-cols-\[1fr_3fr\] {
-    grid-template-columns: 1fr 3fr;
-  }
-  .grid-cols-\[2px_3fr\] {
-    grid-template-columns: 2px 3fr;
-  }
-  .grid-cols-\[10px_3fr\] {
-    grid-template-columns: 10px 3fr;
-  }
-  .grid-cols-\[17px_3fr\] {
-    grid-template-columns: 17px 3fr;
-  }
-  .grid-cols-\[20px_3fr\] {
-    grid-template-columns: 20px 3fr;
-  }
-  .grid-cols-\[25px_3fr\] {
-    grid-template-columns: 25px 3fr;
-  }
-  .grid-cols-\[100PX_3fr\] {
-    grid-template-columns: 100PX 3fr;
-  }
-  .grid-cols-\[100_3fr\] {
-    grid-template-columns: 100 3fr;
-  }
-  .grid-cols-\[100px_3fr\] {
-    grid-template-columns: 100px 3fr;
-  }
-  .grid-cols-\[109_3fr\] {
-    grid-template-columns: 109 3fr;
-  }
-  .grid-cols-\[_3fr\] {
-    grid-template-columns:  3fr;
   }
   .flex-col {
     flex-direction: column;
@@ -422,11 +401,11 @@
   .justify-center {
     justify-content: center;
   }
-  .gap-2 {
-    gap: calc(var(--spacing) * 2);
-  }
   .gap-3 {
     gap: calc(var(--spacing) * 3);
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
   }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
@@ -512,6 +491,9 @@
   .border-l-white {
     border-left-color: var(--color-white);
   }
+  .bg-blue-500 {
+    background-color: var(--color-blue-500);
+  }
   .bg-blue-700 {
     background-color: var(--color-blue-700);
   }
@@ -530,6 +512,13 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .mask-b-to-5 {
+    mask-image: var(--tw-mask-linear), var(--tw-mask-radial), var(--tw-mask-conic);
+    mask-composite: intersect;
+    --tw-mask-linear: var(--tw-mask-left), var(--tw-mask-right), var(--tw-mask-bottom), var(--tw-mask-top);
+    --tw-mask-bottom: linear-gradient(to bottom, var(--tw-mask-bottom-from-color) var(--tw-mask-bottom-from-position), var(--tw-mask-bottom-to-color) var(--tw-mask-bottom-to-position));
+    --tw-mask-bottom-to-position: calc(var(--spacing) * 5);
+  }
   .p-1 {
     padding: calc(var(--spacing) * 1);
   }
@@ -541,6 +530,9 @@
   }
   .p-3 {
     padding: calc(var(--spacing) * 3);
+  }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
   }
   .p-5 {
     padding: calc(var(--spacing) * 5);
@@ -616,9 +608,6 @@
   }
   .text-left {
     text-align: left;
-  }
-  .text-start {
-    text-align: start;
   }
   .font-mono {
     font-family: var(--font-mono);
@@ -719,6 +708,13 @@
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-gray-300);
+      }
+    }
+  }
+  .hover\:bg-blue-700 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-blue-700);
       }
     }
   }
@@ -852,6 +848,11 @@
       max-width: 70vw;
     }
   }
+  .md\:grid-cols-2 {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   .md\:grid-cols-3 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -860,6 +861,11 @@
   .md\:gap-5 {
     @media (width >= 48rem) {
       gap: calc(var(--spacing) * 5);
+    }
+  }
+  .lg\:grid-cols-3 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .rtl\:text-right {
@@ -1042,6 +1048,61 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-mask-linear {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-radial {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-conic {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-left {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-right {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-bottom {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-top {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(#fff, #fff);
+}
+@property --tw-mask-bottom-from-position {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-mask-bottom-to-position {
+  syntax: "*";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-mask-bottom-from-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-mask-bottom-to-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: transparent;
+}
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
@@ -1121,6 +1182,17 @@
     *, ::before, ::after, ::backdrop {
       --tw-space-x-reverse: 0;
       --tw-border-style: solid;
+      --tw-mask-linear: linear-gradient(#fff, #fff);
+      --tw-mask-radial: linear-gradient(#fff, #fff);
+      --tw-mask-conic: linear-gradient(#fff, #fff);
+      --tw-mask-left: linear-gradient(#fff, #fff);
+      --tw-mask-right: linear-gradient(#fff, #fff);
+      --tw-mask-bottom: linear-gradient(#fff, #fff);
+      --tw-mask-top: linear-gradient(#fff, #fff);
+      --tw-mask-bottom-from-position: 0%;
+      --tw-mask-bottom-to-position: 100%;
+      --tw-mask-bottom-from-color: black;
+      --tw-mask-bottom-to-color: transparent;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;

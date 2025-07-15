@@ -84,7 +84,7 @@ $('cuotas').addEventListener('input', function() {
 $('valor_input').addEventListener('input', function() {
     $('valor').value = numeroALetras(parseInt($('valor_input').value, 0));
     $('precio').value = format(parseInt($('valor_input').value, 10))
-    $('precio_cuota').value = numeroALetras(this.value, 10) / parseInt($('cuotas').value, 10);
+    $('precio_cuota').value = numeroALetras(parseInt(this.value, 10) / parseInt($('cuotas').value, 10));
     $('valor_cuota').value = format(parseInt(this.value, 10) / parseInt($('cuotas').value, 10));
     $('valor_cuota_disabled').value = format(parseInt(this.value, 10) / parseInt($('cuotas').value, 10));
 });
@@ -101,8 +101,10 @@ function actualizarTexto() {
     $('valor_txt').textContent = numeroALetras(parseInt($('valor_input').value, 0)) || '___________';
     $('precio_txt').textContent = format(parseInt($('valor_input').value, 10)) || '___________';
     $('razon_txt').textContent = $('razon').value || '________________________';
-    $('valor_cuota_txt').textContent = numeroALetras(parseInt($('valor_cuota').value, 0)) || '___________';
-    $('precio_cuota_txt').textContent = format(Math.ceil(parseFloat($('valor_cuota').value) || 0)) || '___________';
+
+    $('valor_cuota_txt').textContent = numeroALetras(parseInt($('valor_input').value, 10) / parseInt($('cuotas').value, 10)) || '___________';
+    $('precio_cuota_txt').textContent = format(parseInt($('valor_input').value, 10) / parseInt($('cuotas').value, 10)) || '___________';
+
     $('cuotas_txt').textContent = $('cuotas').value || '___';
     $('cesantias_txt').textContent = $('cesantias').value || '___________';
 }

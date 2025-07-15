@@ -1,0 +1,52 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElements = document.querySelectorAll('select[id^="estado_cargador_"]');
+
+        selectElements.forEach(select => {
+            select.addEventListener('change', function() {
+                const actaId = this.dataset.actaId; 
+                const nuevoEstado = this.value;
+
+                // Limpiar mensajes previos
+                mensajeElement.textContent = '';
+                mensajeElement.className = 'text-sm mt-1';
+
+                if (!actaId || !nuevoEstado) {
+                    mensajeElement.textContent = 'Error: ID de acta o nuevo estado no válidos.';
+                    mensajeElement.classList.add('text-red-500');
+                    return;
+                }
+
+                fetch('/actualizar_estado_acta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        acta_id: actaId,
+                        nuevo_estado: nuevoEstado
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        mensajeElement.textContent = 'Estado actualizado con éxito.';
+                        mensajeElement.classList.add('text-green-500');
+                        // Opcional: Actualizar el texto del estado actual en la página
+                        if (estadoActualDisplay) {
+                            estadoActualDisplay.textContent = nuevoEstado;
+                        }
+                    } else {
+                        mensajeElement.textContent = `Error al actualizar estado: ${data.message || 'Desconocido'}`;
+                        mensajeElement.classList.add('text-red-500');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la petición AJAX:', error);
+                    mensajeElement.textContent = 'Error de conexión o servidor.';
+                    mensajeElement.classList.add('text-red-500');
+                });
+            });
+        });
+    });
+</script>

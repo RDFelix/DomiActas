@@ -1,99 +1,34 @@
-from flask import Flask, render_template, request, send_file, redirect, url_for, flash, g
-from docxtpl import DocxTemplate
-import io
+from flask import Flask, render_template, request, redirect, url_for, send_file
 import os
-import tempfile
-from docx2pdf import convert
-import traceback
-import pythoncom
-import time # Para medir tiempos y depurar
+from convert_pdf import process_document_and_convert_to_pdf
+from database import create_database, insert_acta, insert_descuento, get_all_actas, get_all_descuentos, delete_acta, delete_descuento
+from export_excel import generar_excel
+from datetime import datetime
 
 app = Flask(__name__)
 # app.secret_key = 'tu_clave_secreta_aqui' # Descomentar si usas flash messages
 
-# --- Función Auxiliar para Manejar el Proceso de Conversión ---
-def process_document_and_convert_to_pdf(template_path, context, file_prefix, nombre_completo, cedula):
-    """
-    Función auxiliar para procesar la plantilla DOCX, convertir a PDF y enviar el archivo.
-    Maneja la inicialización/desinicialización de COM y la creación/limpieza de archivos temporales.
-    """
-    doc = DocxTemplate(template_path)
-    
-    # 1. Renderizar la plantilla (esto suele ser rápido)
-    start_render_time = time.time()
-    doc.render(context)
-    end_render_time = time.time()
-    print(f"Tiempo de renderizado de DOCX: {end_render_time - start_render_time:.4f} segundos")
-
-    temp_docx_path = None
-    temp_pdf_path = None
-    
-    # --- BLOQUE CLAVE: Gestión de COM ---
-    try:
-        # Inicializar COM para el hilo actual. Es CRUCIAL para cada operación con Word.
-        # Esto asegura que el hilo que procesa la solicitud tenga un entorno COM válido.
-        pythoncom.CoInitialize() 
-
-        # Crea el archivo DOCX temporal
-        start_save_docx_time = time.time()
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_docx:
-            doc.save(tmp_docx.name)
-            temp_docx_path = tmp_docx.name
-        end_save_docx_time = time.time()
-        print(f"Tiempo de guardado de DOCX temporal: {end_save_docx_time - start_save_docx_time:.4f} segundos")
-
-        # Define la ruta del PDF temporal
-        temp_pdf_path = os.path.join(os.path.dirname(temp_docx_path), os.path.basename(temp_docx_path).replace(".docx", ".pdf"))
-
-        # 2. Convertir DOCX a PDF (este es el paso lento, depende de Word)
-        start_convert_time = time.time()
-        # Mantenemos solo los argumentos esenciales
-        convert(temp_docx_path, temp_pdf_path) 
-        end_convert_time = time.time()
-        print(f"Tiempo de conversión DOCX a PDF: {end_convert_time - start_convert_time:.4f} segundos")
-
-        # Lee el PDF generado en un stream para enviarlo
-        with open(temp_pdf_path, 'rb') as f:
-            file_stream = io.BytesIO(f.read())
-        file_stream.seek(0)
-
-        nombre_archivo_descarga = f"{file_prefix}_{nombre_completo}_{cedula}.pdf"
-
-        return send_file(
-            file_stream,
-            mimetype='application/pdf',
-            as_attachment=True,
-            download_name=nombre_archivo_descarga
-        )
-    except Exception as e:
-        print(f"Error en process_document_and_convert_to_pdf: {e}")
-        traceback.print_exc()
-        return "Error al generar el PDF. Asegúrate de que Microsoft Word esté instalado y no haya procesos de Word colgados.", 500
-    finally:
-        # Desinicializar COM en el mismo hilo. Esto es CRUCIAL para liberar los recursos.
-        try:
-            pythoncom.CoUninitialize()
-        except Exception as e_uninit:
-            # Captura errores si CoUninitialize es llamado sin CoInitialize previo o si hay otros problemas
-            print(f"Advertencia: Error al desinicializar COM (puede ser normal si COM no se inicializó correctamente): {e_uninit}")
-            
-        # Limpiar los archivos temporales, independientemente del éxito o error
-        if temp_docx_path and os.path.exists(temp_docx_path):
-            try:
-                os.remove(temp_docx_path)
-            except OSError as e:
-                print(f"Error al eliminar el archivo temporal DOCX {temp_docx_path}: {e}")
-        if temp_pdf_path and os.path.exists(temp_pdf_path):
-            try:
-                os.remove(temp_pdf_path)
-            except OSError as e:
-                print(f"Error al eliminar el archivo temporal PDF {temp_pdf_path}: {e}")
-
-
-# --- Rutas para renderizar los formularios HTML (sin cambios) ---
 @app.route('/')
 def index():
-    return render_template('asignacion.html')
+    actas = get_all_actas()
+    return render_template('inicio.html', actas=actas)
+
+@app.route('/inicio')
+def inicio():
+    actas = get_all_actas()
+    return render_template('inicio.html', actas=actas)
+
+
+@app.route('/eliminar', methods=['POST'])
+def eliminar():
+    if request.method == 'POST':
+        codigo = request.form.get('codigo')
+        if codigo:
+            print(f"Attempting to delete acta with ID: {codigo}")
+            delete_acta(codigo)
+        else:
+            print("No 'codigo' provided in the form data for deletion.")
+    return redirect(url_for('inicio'))
 
 @app.route('/asignacion')
 def asignacion():
@@ -111,12 +46,25 @@ def descuento():
 def mantenimiento():
     return render_template('mantenimiento.html')
 
-# --- Rutas para Generar y Convertir Documentos (simplificadas) ---
+@app.route('/generar_seguimiento')
+def generar_seguimiento():
+    excel_data = generar_excel()
+    if excel_data:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_filename = f"SEGUIMIENTO_DE_ACTAS_{timestamp}.xlsx"
+        return send_file(
+            excel_data,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=output_filename
+        )
+    else:
+        return "Error al generar el archivo excel", 500
+
 
 @app.route('/generar_asignar', methods=['POST'])
 def generar_asignar():
     if request.method == 'POST':
-        # Recopilación de datos del formulario (sin cambios)
         ciudad = request.form.get('ciudad')
         dia = request.form.get('dia')
         mes = request.form.get('mes')
@@ -167,7 +115,14 @@ def generar_asignar():
             'nombre_completo': nombre_completo, 'cedula': cedula
         }
 
-        return process_document_and_convert_to_pdf(template_path, context, "ASIGNACION", nombre_completo, cedula)
+
+
+        values = [cedula, nombre_completo, ciudad, "ASIGNACION", f"{dia} de {mes} de {año}", (observacion or 'Ninguna'), "PENDIENTE"]
+
+        if insert_acta(values):
+            return process_document_and_convert_to_pdf(template_path, context, "ASIGNACION", nombre_completo, cedula)
+        else:
+            return "Error al guardar los datos en la base de datos.", 500
 
 @app.route('/generar_devolver', methods=['POST'])
 def generar_devolver():
@@ -224,9 +179,13 @@ def generar_devolver():
             'marca_4': marca_4, 'modelo_4': modelo_4, 'serial_4': serial_4, 'cargador_4': cargador_4, 'estuche_4': estuche_4,
             'marca_5': marca_5, 'modelo_5': modelo_5, 'serial_5': serial_5, 'cargador_5': cargador_5, 'estuche_5': estuche_5
         }
+        values = [cedula, nombre_completo, ciudad, "DEVOLUCION", f"{dia} de {mes} de {año}", observacion, "PENDIENTE"]
 
-        return process_document_and_convert_to_pdf(template_path, context, "DEVOLUCION", nombre_completo, cedula)
-                   
+        if insert_acta(values):
+            return process_document_and_convert_to_pdf(template_path, context, "DEVOLUCION", nombre_completo, cedula)
+        else:
+            return "Error al guardar los datos en la base de datos.", 500
+
 @app.route('/generar_descontar', methods=['POST'])
 def generar_descontar():
     if request.method == 'POST':
@@ -259,38 +218,56 @@ def generar_descontar():
             'valor_cuota': valor_cuota, 'precio_cuota': precio_cuota, 'cuotas': cuotas
         }
 
-        return process_document_and_convert_to_pdf(template_path, context, "DESCUENTO", nombre_completo, cedula)
+        values = [cedula, nombre_completo, ciudad, "ASIGNACION", f"{dia} de {mes} de {año}", (razon or 'Ninguna'), "PENDIENTE"]
+
+        if insert_acta(values):
+            return process_document_and_convert_to_pdf(template_path, context, "DESCUENTO", nombre_completo, cedula)
+        else:
+            return "Error al guardar los datos en la base de datos.", 500
+
                    
 @app.route('/generar_mantenimiento', methods=['POST'])
 def generar_mantenimiento():
     if request.method == 'POST':
         ciudad = request.form.get('ciudad')
-        fecha = request.form.get('fecha')
+        dia = request.form.get('dia')
+        mes = request.form.get('mes')
+        año = request.form.get('año')
+
+        mes_numero = request.form.get('mes_numero')
+        fecha = f"{str(dia).zfill(2)}/{str(mes_numero).zfill(2)}/{año}"
         nombre_completo = request.form.get('nombre_completo', '').upper()
         cedula = request.form.get('cedula')
         cargo = request.form.get('cargo')
+
+
+        if request.form.get('tipo_mantenimiento') == 'preventivo':
+            preventivo, correctivo = "✔", ""
+        elif request.form.get('tipo_mantenimiento') == 'correctivo':
+            preventivo, correctivo = "", "✔"
         
-        preventivo = request.form.get('preventivo') == 'on'
-        correctivo = request.form.get('correctivo') == 'on'
+        print(f"\n\n----------------------->TIPO DE MANTENIMIENTO recibido: {request.form.get('tipo_mantenimiento')}")
 
         serial = request.form.get('serial')
 
-        formateo = request.form.get('formateo') == 'on'
-        instalacion = request.form.get('instalacion') == 'on'
-        limpieza = request.form.get('limpieza') == 'on'
-        eliminacion_temporales = request.form.get('eliminacion_temporales') == 'on'
-        actualizacion = request.form.get('actualizacion') == 'on'
-        eliminacion_programas = request.form.get('eliminacion_programas') == 'on'
-        cambio = request.form.get('cambio') == 'on'
-        configuracion = request.form.get('configuracion') == 'on'
-        observacion = request.form.get('observacion')
+        formateo = "✔" if request.form.get('formateo') == 'on' else ""
+        instalacion = "✔" if request.form.get('instalacion') == 'on' else ""
+        limpieza = "✔" if request.form.get('limpieza') == 'on' else ""
+        eliminacion_temporales = "✔" if request.form.get('eliminacion_temporales') == 'on' else ""
+        actualizacion = "✔" if request.form.get('actualizacion') == 'on' else ""
+        eliminacion_programas = "✔" if request.form.get('eliminacion_programas') == 'on' else ""
+        cambio = "✔" if request.form.get('cambio') == 'on' else ""
+        configuracion = "✔" if request.form.get('configuracion') == 'on' else ""
+        observacion = request.form.get('observacion') or ''
+
+        print(f"\n\n----------------------->FORMATEO recibido: {formateo}")
 
         template_path = os.path.join(app.root_path, 'static', 'actas', 'mantenimiento.docx')
         if not os.path.exists(template_path):
             return "Error: La plantilla 'mantenimiento.docx' no se encontró.", 404
         
         context = {
-            'ciudad': ciudad, 'fecha': fecha,
+            'ciudad': ciudad, 'dia': dia, 'mes': mes, 'año': año, 'fecha': fecha,
             'nombre_completo': nombre_completo, 'cedula': cedula, 'cargo': cargo,
             'serial': serial,
             'preventivo': preventivo, 'correctivo': correctivo,
@@ -300,8 +277,11 @@ def generar_mantenimiento():
             'observaciones': observacion,
         }
 
+
         return process_document_and_convert_to_pdf(template_path, context, "MANTENIMIENTO", nombre_completo, cedula)
 
-# --- Punto de Entrada de la Aplicación ---
+
+
 if __name__ == '__main__':
-    app.run(debug=True) # Cambia debug=False en producción
+    create_database()
+    app.run(debug=False)
